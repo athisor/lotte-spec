@@ -413,7 +413,7 @@ quedó verificado:
   `Borrar([(índice, trazo)…])`; la goma borra varios trazos como **una** edición y Ctrl+Z los
   restaura en su índice original; "Borrar todo" es una edición más.
 
-Lo que **no** se probó en esta tanda: la presión del lápiz con las herramientas nuevas (el dueño usó
+Lo que **no** se probó en esta tanda: la presión del lápiz con las herramientas nuevas (el autor usó
 mouse: `presion inf .. -inf` en los cuatro cierres), y el lápiz de grosor fijo con tableta. Nada de
 esto tiene tests: es laboratorio, y es exactamente lo que A1, F1, H1 y H2 del hito 1 convierten en
 código con gate.

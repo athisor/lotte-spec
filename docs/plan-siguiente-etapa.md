@@ -168,7 +168,7 @@ toca `lotte-core`. Depende de A (ventana) y E7 (`Scene`).
 Es una **rebanada vertical**, no un lote: toma de cada lote solo lo que hace falta para que un
 animador importe un puppet dibujado afuera, lo arme con pegs, lo anime con claves, guarde el plano,
 lo vuelva a abrir idéntico y exporte los frames. Todo lo demás espera a que esto funcione en manos
-del dueño.
+del autor.
 
 ### Definición de terminado (medible)
 

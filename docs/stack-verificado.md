@@ -89,14 +89,14 @@ Escrito para que no se dé por hecho:
    `scratchpad/mockup`): barra de menús, panel de color y línea de tiempo redimensionables,
    cámara vello al centro; egui pinta encima del blit de vello en el mismo frame
    (`LoadOp::Load`). 4 trazos, 3820 poses, presión 0.0000–0.5125, `Responding: True`,
-   cierre limpio. Una sola `wgpu`, un solo `winit`. Valoración del dueño tras usarlo:
+   cierre limpio. Una sola `wgpu`, un solo `winit`. Valoración del autor tras usarlo:
    "en general funciona bien". Esto **cierra la decisión A a favor de egui como biblioteca**.
 1b. ✅ **Los cinco crates del motor contra el stack, en ejecución** (2026-09-07,
    `scratchpad/mockup` con `lotte-core/rig/timeline/render` por ruta): `FCurve` → `Transform2D`
    → `evaluate_all` → `VectorItem::glam_to_kurbo_affine` → `vello::Scene`, `ViewportCamera`
    para pan/zoom del lienzo, gizmos de pivote (§5) y visor de nodos (§1). Compiló al primer
    intento; `glam 0.32.1` y `kurbo 0.13.1` del workspace unifican con los del render
-   (1 entrada cada uno). Confirmado por el dueño tras usarlo. Un hallazgo: la convención de
+   (1 entrada cada uno). Confirmado por el autor tras usarlo. Un hallazgo: la convención de
    ejes (decisión F). Detalle en [`bitacora-tableta.md`](bitacora-tableta.md).
 2. **El puente vello → textura → egui** (`register_native_texture`, `renderer.rs:771`).
    API verificada, sin correr. Solo hace falta si la vista de cámara vive *dentro* de un
@@ -111,7 +111,7 @@ Escrito para que no se dé por hecho:
    pestañas hermanas, se redimensionan por el divisor y se cierran con la ×
    (`is_tab_closable` viene en `false`; hay que sobreescribirlo). La cámara vello vive
    *dentro* de un pane: su rect se remide cada frame y el dibujo se recorta con
-   `push_layer`. Confirmado por el dueño: "lo demás funciona". Costo asumido: **otra
+   `push_layer`. Confirmado por el autor: "lo demás funciona". Costo asumido: **otra
    versión anclada en tándem**, `egui 0.35 ↔ egui_tiles 0.16`.
    Lo que sigue sin correr: **paneles flotantes en ventana propia** (viewports de egui
    sobre nuestro bucle) — `egui_tiles` acopla dentro de la ventana, no desprende.

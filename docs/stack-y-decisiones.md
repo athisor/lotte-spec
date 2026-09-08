@@ -176,5 +176,5 @@ rendimiento (ningún benchmark todavía; la frase "sub-microsegundo" del README 
 
 **El primer hito ya está definido** ([`plan-siguiente-etapa.md`](plan-siguiente-etapa.md), "Hito 1 — Animar un puppet"): importar un puppet desde SVG, armarlo con pegs, animarlo con claves y exposición, guardar el plano como directorio, reabrirlo idéntico (hash por frame) y exportar la secuencia PNG. Sin audio, sin dibujo interno, sin multiplano. Dieciocho issues en cuatro sesiones.
 
-**La tesis de esta etapa**, dicha por el dueño: rehacer código antes de tomar las decisiones
+**La tesis de esta etapa**, dicha por el autor: rehacer código antes de tomar las decisiones
 importantes es trabajar en el aire. Las decisiones están tomadas y medidas. Lo que sigue es código.

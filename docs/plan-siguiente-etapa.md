@@ -20,7 +20,7 @@ más las decisiones ya tomadas que los abren.
 
 Ninguna la toma un developer. Están numeradas para citarlas desde los issues.
 
-**Estado (2026-09-08): todas decididas** — el acta, con las mediciones y las palabras del dueño, está en
+**Estado (2026-09-08): todas decididas** — el acta, con las mediciones y las palabras del autor, está en
 [`decisiones-modelo-de-datos.md`](decisiones-modelo-de-datos.md). La columna "Recomendación medida"
 se conserva como registro; donde difiere del acta (D1), gana el acta.
 
@@ -155,12 +155,12 @@ toca `lotte-core`. Depende de A (ventana) y E7 (`Scene`).
 | # | Issue | Criterio medible | Tamaño |
 |---|---|---|---|
 | G1 | **Fondo raster** como nodo de dibujo: `image 0.25` decodifica PNG/JPEG/WebP a `peniko::Image`; mismo peg y `z` que un dibujo vectorial; `Scene.background` con capas ATRÁS/MEDIO/FRENTE | Un fondo de tres capas PNG se compone con dos rigs delante y el paneo de cámara da paralaje distinto por capa (`S_z` medido por capa); `cargo tree` con **una** `png` (la de vello) | **M** |
-| G2 | **PSD por capas** con `psd 0.3.5`: cada capa visible → un nodo raster con su offset y su orden | Un PSD real del estudio (a elegir por el dueño) importa N capas con el mismo orden y posición que en Photoshop (comparación de un render contra una exportación plana, diferencia de píxel medida); si el crate no cubre el archivo, el issue lo reporta con el error crudo y se cierra sin forzar | **M** |
+| G2 | **PSD por capas** con `psd 0.3.5`: cada capa visible → un nodo raster con su offset y su orden | Un PSD real del estudio (a elegir por el autor) importa N capas con el mismo orden y posición que en Photoshop (comparación de un render contra una exportación plana, diferencia de píxel medida); si el crate no cubre el archivo, el issue lo reporta con el error crudo y se cierra sin forzar | **M** |
 | G3 | **Pista de audio**: cargar con `symphonium`, onda como pirámide de picos/RMS dibujada con `vello` bajo el dope sheet, reproducción con Firewheel (o `cpal` directo si el *spike* lo descarta) sincronizada a frames, *scrub* al arrastrar el cursor | WAV de 30 s a 24 fps: la posición reportada por el motor de audio y el frame del cursor difieren < 1 frame durante toda la reproducción (medido con un *log* de 720 muestras); la onda de un archivo de 10 min se dibuja sin recalcular picos por frame (tiempo por frame medido); `cargo tree` con **una** `glam` | **L** |
 | G4 | **Exportar**: render fuera de pantalla con `vello` a textura + *readback* → secuencia PNG (y EXR si `image` lo da) con `image`; video invocando **`ffmpeg` externo** como proceso, detectado en `PATH`, con mensaje claro si falta; nunca enlazado ni distribuido | 48 frames exportados son idénticos píxel a píxel al render en pantalla del mismo frame (diferencia medida = 0); sin `ffmpeg` instalado, la exportación de video falla con un mensaje y la de PNG funciona; `cargo tree` sin ningún crate `ffmpeg*` | **L** |
 | G5 | **Texto vectorial**: `parley 0.11` + `skrifa 0.44` convierten un texto a `Contour`s (glifos como `BezPath`) en un nodo de dibujo; a partir de ahí es geometría común | `cargo tree` muestra **una** `skrifa 0.44` compartida con `vello` y **una** `peniko`; el contorno de una letra se rellena, se anima con un peg y se exporta a SVG como `<path>` | **M** |
 
-## Hito 1 — Animar un puppet (definido por el dueño el 2026-09-08)
+## Hito 1 — Animar un puppet (definido por el autor el 2026-09-08)
 
 > "Tener una base mínima que permita animar puppets. Quizás incluso sin sonido: animar puppets y
 > exportarlos como secuencia de imágenes. Y poder guardar una escena y poder abrirla."

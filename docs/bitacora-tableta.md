@@ -299,7 +299,7 @@ lienzo=[[0.0 22.0] - [1120.0 670.0]]   → maximizada: [[0.0 22.0] - [1640.0 827
 ```
 
 `Responding: True` toda la sesión, cierre limpio. El lápiz pinta solo dentro del rect de
-cámara que egui mide cada frame; sobre los paneles opera los widgets. Valoración del dueño
+cámara que egui mide cada frame; sobre los paneles opera los widgets. Valoración del autor
 tras usarlo: **"en general funciona bien"** (2026-09-07). Con esto la §4.1 de
 `docs/stack-verificado.md` pasa de "sin correr" a verificada.
 
@@ -322,7 +322,7 @@ Cargo.lock: glam 1 · kurbo 1 · wgpu 1 · winit 1 · egui 1
 
 Compiló al primer intento con los cuatro crates del motor: **las versiones del workspace
 (`glam 0.32.1`, `kurbo 0.13.1`) y las del stack de render unifican sin duplicados.**
-Confirmado por el dueño tras usarlo (2026-09-07): visor de nodos con zoom y pan, play,
+Confirmado por el autor tras usarlo (2026-09-07): visor de nodos con zoom y pan, play,
 deshacer, pan/zoom del lienzo — "funciona". El saludo se ve raro, pero es autoría de la
 curva, no motor.
 
@@ -334,7 +334,7 @@ el torso); y **ninguna spec fija la convención** (cero menciones en `architectu
 ida-y-vuelta, ciego a la orientación. OpenToonz voltea en el visor
 (`SceneViewer::winToWorld`, `sceneviewer.cpp:1039`: `-pos.y() + height()/2`): mundo Y-arriba,
 la frontera con la pantalla invierte. El laboratorio lleva el volteo explícito y marcado
-provisorio; **el crate no se tocó** — es decisión del dueño (ver `stack-verificado.md` §5.F).
+provisorio; **el crate no se tocó** — es decisión del autor (ver `stack-verificado.md` §5.F).
 
 **Hallazgo — crates de grafos de nodos.** `egui-snarl`, `egui_graphs 0.32` y
 `egui_node_graph2 0.7` resuelven con `egui 0.35` pero los tres traen **un segundo egui**
@@ -357,7 +357,7 @@ lienzo=[[300.6 46.0] - [1222.4 679.8]]   ← la camara, acoplada entre nodos y c
 egui en el lock: 1 · egui_tiles 0.16.0
 ```
 
-`Responding: True`. Confirmado por el dueño (2026-09-08): arrastrar pestañas, acoplar,
+`Responding: True`. Confirmado por el autor (2026-09-08): arrastrar pestañas, acoplar,
 redimensionar por el divisor — "lo demás funciona". Lo único que faltó fue la × de cierre:
 `is_tab_closable` viene en `false` por defecto; se sobreescribió a `true` y `on_tab_close`
 registra el cierre. **Ventanas → Restablecer distribución** reconstruye el árbol.

@@ -102,7 +102,7 @@ $$
 
 #### 3.4. Alcance Complementario: Medios (agregado el 2026-09-08)
 
-Soporte, no foco — decidido por el dueño y detallado en
+Soporte, no foco — decidido por el autor y detallado en
 [`docs/decisiones-modelo-de-datos.md`](docs/decisiones-modelo-de-datos.md) (D-Img, D-Audio,
 D-Export, D-Text):
 

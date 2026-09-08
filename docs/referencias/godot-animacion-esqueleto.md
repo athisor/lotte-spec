@@ -739,6 +739,6 @@ sparse ya presente (no se clonó ni modificó nada).
 | Empaquetado CPU de bones/weights y draw call | `Read scene/2d/polygon_2d.cpp` offset 230, limit 150; `grep -n "canvas_item_add_mesh\|ARRAY_BONES\|attach_skeleton"` | líneas 132, 246-309, 387-388, 435 |
 | `_execute` de los 7 modificadores 2D | `grep -n "_execute\b" skeleton_modification_2d_*.cpp` (dentro de `scene/resources/2d/skeleton/`) | líneas citadas en la tabla de §6 |
 
-Ningún comando ejecutó binarios ni escribió en el repositorio del motor ni en `O:/Lotte/references`; todas las
+Ningún comando ejecutó binarios ni escribió en el repositorio del motor ni en `references/`; todas las
 lecturas fueron de solo lectura sobre el checkout de referencia, y este informe es el único archivo
 escrito, en `(fuera del repositorio)/godot-animacion-esqueleto.md`.

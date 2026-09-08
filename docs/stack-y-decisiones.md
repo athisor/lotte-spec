@@ -66,6 +66,7 @@ Leyenda de razones: **[V]** velocidad · **[A]** arquitectura · **[C]** compati
 |---|---|---|---|
 | `egui` + `egui-winit` + `egui-wgpu` | **0.35.0** | Widgets, paneles, menús, línea de tiempo, visor de nodos — **como biblioteca**, sobre nuestro bucle | **[V]** modo inmediato: la UI se describe cada frame, sin árbol de widgets que sincronizar con el modelo — para una línea de tiempo con miles de celdas y un visor de nodos que se mueve a 60 fps es la forma barata. **[A]** pinta encima del blit de `vello` en el **mismo frame** (`LoadOp::Load`); la vista de cámara vive dentro de un panel de egui y se recorta con `push_layer`. **[C]** 0.35 es la **única** versión que resuelve a `wgpu 29`. Verificado: menús, panel de color, timeline, cámara, 4 trazos con presión, cierre limpio |
 | `egui_tiles` | 0.16.0 | Paneles acoplables (pestañas arrastrables, divisores, cerrar) | **[F]** el animador ordena su espacio de trabajo. **[C]** la única versión que deja **una** `egui` en el lock (0.15 y 0.17 traen dos). **[L]** MIT/Apache, de rerun-io. Costo asumido: se ancla en tándem con `egui` |
+| `egui-phosphor` | 0.13.0 | Tipografía de iconos para las herramientas (flecha, marco, pincel, lápiz, goma) | **[C]** su `Cargo.toml` declara `egui = "0.35"`: una sola `egui` en el lock. **[L]** MIT. egui solo trae un subconjunto de emoji: sin una tipografía de iconos, los glifos salen como cuadrados |
 
 ### 2.5 Geometría avanzada, importación y formato (compatibles, medidos, todavía sin usar)
 

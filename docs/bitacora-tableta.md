@@ -374,3 +374,46 @@ Notas de API: `wgpu 29` exige `multiview_mask: None` en `RenderPassDescriptor`;
 con `.resizable(true).default_size(..).min_size(..)`. Nota de API: en `wgpu 29`, `Surface::get_current_texture` ya no
 devuelve `Result` sino el enum `CurrentSurfaceTexture` (`Success`/`Suboptimal`/`Outdated`/
 `Timeout`/`Occluded`/…).
+
+## Spike de herramientas — tema oscuro, caja de herramientas y cuerpo completo (2026-09-08, tarde)
+
+Sobre el mismo mockup (`el mockup de laboratorio, 1 621 líneas`), cinco iteraciones con el autor probando cada una. Lo que
+quedó verificado:
+
+- **Tema oscuro forzado.** egui seguía el tema de Windows (claro) porque `egui_winit::State::new`
+  recibía `win.theme()`. Se pasa `Some(winit::window::Theme::Dark)`, se fija `Context::set_theme(Dark)`
+  y una paleta propia de grises (paneles 46, ventanas 40, fondos 30, widgets 56–88). El papel de la
+  cámara pasa a gris medio (66,66,70) y la tinta por defecto a clara. Nota de API: el `Theme` que
+  pide `State::new` es el de **winit**, no el de egui.
+- **Tipografía de iconos.** Los glifos Unicode sueltos (⬚, 🖌, ⌫) salían como cuadrados: egui trae
+  Ubuntu-Light y un subconjunto de Noto Emoji. `egui-phosphor 0.13.0` (MIT) declara `egui = "0.35"` y
+  deja **una** `egui` en el lock; se registra con `add_to_fonts(&mut FontDefinitions::default(),
+  Variant::Regular)` y los iconos son constantes con nombre (`CURSOR`, `SELECTION`, `PAINT_BRUSH`,
+  `PENCIL_SIMPLE`, `ERASER`). Nota de API: `SelectableLabel` ya no existe en egui 0.35; es
+  `Button::selectable`. `Panel::left(..).exact_size(..)` (no `exact_width`).
+- **Caja de herramientas a dos columnas**, 70 px exactos (4 + 30 + 2 + 30 + 4): `egui::Grid`
+  repartía las columnas con aire; filas `horizontal` con `item_spacing = 2` y `Frame::inner_margin(4)`
+  dan el resultado. Cinco herramientas con atajo: flecha (V), marco (M), pincel (B), lápiz de grosor
+  fijo (P), goma (E).
+- **Selección y movimiento de pegs.** Hit-test del pivote más cercano en píxeles físicos (radio 12);
+  el delta del arrastre se lleva al espacio local del **padre** con `globales[padre].inverse()
+  .transform_vector2(delta)`. Medido en sesión: distancias de acierto entre 0.6 y 9.7 px. Marco
+  rectangular para selección múltiple; de un conjunto se mueven solo los pegs sin ancestro
+  seleccionado. Hallazgo de UX del autor (log: dos marcos de 9 pegs seguidos de cuatro marcos vacíos
+  y ningún movimiento): arrastrar con el marco sobre un pivote seleccionado tiene que **mover** el
+  conjunto, no abrir otro marco. Corregido.
+- **`reposo ⊕ animación(t)` en el motor del mockup** (D-Inst en miniatura): `Motor` guarda
+  `reposo: Vec<Transform2D>`; cada frame parte del reposo, aplica las curvas y suma los
+  desplazamientos puestos en modo Animar. Modo Editar rig escribe en el reposo; **Reset animación**
+  vacía los desplazamientos y conserva los arreglos. Menú *Modo* con las dos opciones.
+- **Cuerpo completo animado**: 14 pegs (pelvis, muslos, pantorrillas, pies) y 8 `FCurve` reales,
+  incluidas dos de **posición** (balanceo de pelvis en x, rebote del root en y); la pierna derecha
+  lee las mismas curvas medio ciclo después, en espejo. 104 578 frames en la última sesión sin caídas.
+- **Historial de ediciones con inverso** (D-Undo en miniatura) para los trazos: `Agregar(trazo)` y
+  `Borrar([(índice, trazo)…])`; la goma borra varios trazos como **una** edición y Ctrl+Z los
+  restaura en su índice original; "Borrar todo" es una edición más.
+
+Lo que **no** se probó en esta tanda: la presión del lápiz con las herramientas nuevas (el dueño usó
+mouse: `presion inf .. -inf` en los cuatro cierres), y el lápiz de grosor fijo con tableta. Nada de
+esto tiene tests: es laboratorio, y es exactamente lo que A1, F1, H1 y H2 del hito 1 convierten en
+código con gate.

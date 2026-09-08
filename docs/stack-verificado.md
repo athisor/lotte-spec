@@ -25,6 +25,7 @@ una corrida detrás; lo que no, lo dice.
 | `octotablet` | 0.1.0 | Presión/tilt de la tableta vía Windows Ink | ✅ verificado, con una condición (§2) |
 | `pollster` | 0.3 | `block_on` para crear la superficie | ✅ verificado |
 | `glam` | 0.32.1 | Matrices del motor (ya en el workspace) | ✅ en uso, gate verde |
+| `egui-phosphor` | 0.13.0 | Tipografía de iconos (Phosphor, MIT) para la barra de herramientas | ✅ verificado 2026-09-08: declara `egui = "0.35"`, una sola `egui` en el lock |
 
 Es el stack de Graphite (`f71d88f`) más la capa de tableta. Una sola `wgpu` en el árbol.
 

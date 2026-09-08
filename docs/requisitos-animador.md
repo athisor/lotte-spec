@@ -6,7 +6,7 @@ modelo de datos**, y si el modelo no las contempla desde el principio, después 
 
 | | |
 |---|---|
-| Origen | Práctica de producción del estudio del autor (animación 2D de recorte, varios personajes por plano, rigs de ~300 pegs) |
+| Origen | Práctica de producción del estudio del autor (animación 2D cutout, varios personajes por plano, rigs de ~300 pegs) |
 | Respaldo técnico | Proyectos de licencia permisiva y estándares abiertos, citados en cada sección |
 | Estado | Requisitos aceptados; su implementación está en la [hoja de ruta](plan-siguiente-etapa.md) (decisión D-Inst y lotes E y C) |
 
@@ -124,7 +124,7 @@ Varios editores vectoriales guardan así sus datos propios dentro de SVG válido
 - Las **capas de arte** (§1 de [`patterns.md`](patterns.md)) se exportan como `<g id="line">`,
   `<g id="colour">` etc.: pierden semántica afuera, la recuperan al volver.
 - El **documento** de Lotte es propio (decisiones D-Fmt y D-Tab): no hay estándar abierto que
-  cubra un rig de recorte con tiempo. Lo más cerca es el **JSON de DragonBones (MIT)**, que la
+  cubra un rig cutout con tiempo. Lo más cerca es el **JSON de DragonBones (MIT)**, que la
   hoja de ruta contempla importar; Lottie es para *reproducir* animación acabada, no para
   editarla, y también carece de grosor variable.
 - **Estándares más nuevos:** SVG 2 no cambia nada de lo anterior; *SVG Native* es un subconjunto.
@@ -189,7 +189,7 @@ su propio XML, Rerun en su formato de registro (Arrow). Lo que sí existe afuera
 | Estándar | Qué modela | Cuánto se parece a `(ruta, atributo) → FCurve` |
 |---|---|---|
 | **glTF 2.0 — `animations`** (Khronos, abierto) | Canales `{ target: { node, path }, sampler }`; samplers con keyframes `STEP`, `LINEAR`, **`CUBICSPLINE` con tangentes de entrada y salida explícitas**; los números en buffers binarios aparte | **El más cercano.** Es exactamente nodo + atributo + keyframes con manijas. Le falta: exposición de dibujos, canales arbitrarios (solo TRS) y pivotes explícitos |
-| **DragonBones JSON** (MIT) | Rig de recorte completo: huesos, slots, *displays*, timelines por hueso y por slot (sustitución de dibujo), FFD | El único que cubre **exposición de dibujos** y rig de recorte; ya está en la hoja de ruta como importador |
+| **DragonBones JSON** (MIT) | Rig cutout completo: huesos, slots, *displays*, timelines por hueso y por slot (sustitución de dibujo), FFD | El único que cubre **exposición de dibujos** y rig cutout; ya está en la hoja de ruta como importador |
 | **OpenTimelineIO** (ASWF, Apache-2.0) | Editorial: pistas, clips, cortes, tiempo de secuencia | La capa de *storyboard* (secuencia → paneles), no la de curvas de parámetro |
 | **USD** (Pixar/AOUSD, Apache-2.0 modificada) | Atributos con *time samples* por prim; composición de capas | Bake por muestras, no curvas editables; pesado. Referencia para *capas y overrides* (definición/instancia), no para keyframes |
 | **Lottie** (JSON, abierto) | Reproducción de animación acabada con easing Bézier por propiedad; *precomps* | Para *exportar* a web, After Effects y móviles; no para editar rigs |

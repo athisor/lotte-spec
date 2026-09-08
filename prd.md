@@ -12,7 +12,7 @@
 * El espacio de nombres de crates en Cargo adoptará el prefijo explícito: `lotte-core`, `lotte-viewport`, `lotte-rig`, `lotte-timeline`, `lotte-render`.
 * Comando de CLI / binarios: `lotte` (ej. `lotte init`, `cargo run -p lotte-viewport`).
 
-**Objetivo:** Diseñar un motor y entorno de animación 2D vectorial con aceleración por GPU, enfocado en cut-out avanzado mediante jerarquías de transformación afín (pegs/pivotes), mallas deformables y curvas de interpolación, tomando como horizonte funcional las herramientas profesionales de animación de recorte y como hito mínimo de ejecución un pipeline esquelético estilo Spine/DragonBones.
+**Objetivo:** Diseñar un motor y entorno de animación 2D vectorial con aceleración por GPU, enfocado en cut-out avanzado mediante jerarquías de transformación afín (pegs/pivotes), mallas deformables y curvas de interpolación, tomando como horizonte funcional las herramientas profesionales de animación cutout y como hito mínimo de ejecución un pipeline esquelético estilo Spine/DragonBones.
 
 ---
 

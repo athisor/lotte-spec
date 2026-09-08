@@ -26,7 +26,7 @@ El arte vive en `z ≈ 0`; la cámara está en `z = D > 0`; `S_z = D / (D − z)
 simplemente más lejos que el plano del arte. El lado peligroso es el otro: un objeto con `z ≥ D`
 está en la cámara o detrás, y `S_z` explota. **Regla de validación**: `z < D`, con aviso y
 *clamp*, nunca un `NaN` en pantalla. Razón: es la convención de OpenToonz (`tstageobject.cpp`:
-`dz = focus + cameraZ − objectZ`, escala `(focus+cameraZ)/dz`) y la que los animadores de recorte
+`dz = focus + cameraZ − objectZ`, escala `(focus+cameraZ)/dz`) y la que los animadores cutout
 ya conocen; y la experiencia de producción del estudio recomienda **Z en pocos lugares, con el arte
 en Z ≈ 0**.
 

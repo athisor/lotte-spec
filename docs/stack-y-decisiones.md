@@ -118,7 +118,7 @@ que cada una bloquea en [`plan-siguiente-etapa.md`](plan-siguiente-etapa.md). To
 | **D-Inst** | Definición / instancia / animación: `valor(t) = reposo ⊕ animación(t)`; clon = otra instancia, duplicado = definición nueva | **[F]** copiar animación entre planos del mismo rig, resetear sin perder arreglos, editar el rig vs animarlo, clonar vs duplicar — los cuatro requisitos del animador. Godot y glTF lo hacen; Bevy no, y su propio informe dice por qué es un problema |
 | **D-Id** | Dos ids por nodo: posicional en memoria + derivado de la ruta de nombres para canales y archivo; duplicados = error al cargar | **[V]** el DAG usa índices; **[F]** pegar animación entre rigs "compatibles" por ruta; **[A]** evitar la identidad por texto *case-sensitive* que rompió planos en producción |
 | **D-T** | Tiempo en **frames** del proyecto (`f64` en curvas, `u32` en exposición); `fps` solo en la frontera | **[F]** "es la unidad básica"; cambiar el fps no mueve claves fuera de frame. OpenToonz y la práctica del animador |
-| **D1** | Mayor `z` = más cerca, arte en `z ≈ 0`, cámara en `z = D`, validación `z < D` | **[C]** convención de OpenToonz y de los animadores de recorte; **[F]** los animadores no reaprenden |
+| **D1** | Mayor `z` = más cerca, arte en `z ≈ 0`, cámara en `z = D`, validación `z < D` | **[C]** convención de OpenToonz y de los animadores cutout; **[F]** los animadores no reaprenden |
 | **D-F** | Mundo Y-arriba, la cámara voltea | **[C]** OpenToonz; corrige el personaje cabeza abajo del mockup |
 | **D2** | `lotte-timeline` no depende de `lotte-core` | **[A]** evaluar curvas sin cargar un rig; `PoseSpace` en `lotte-rig` |
 | **D3** | El dibujo vive en `lotte-rig`; ids numéricos | **[A]** una sola autoridad sobre trazos y rellenos (Graphite) |

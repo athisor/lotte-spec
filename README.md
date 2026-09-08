@@ -1,7 +1,7 @@
-# Lotte — especificación abierta de un motor de animación 2D de recorte
+# Lotte — especificación abierta de un motor de animación 2D cutout
 
 > Homenaje a **Lotte Reiniger** (1899–1981): sus siluetas de cartulina con bisagras son el
-> ancestro directo de los pegs y las jerarquías de piezas de la animación de recorte moderna.
+> ancestro directo de los pegs y las jerarquías de piezas de la animación cutout moderna.
 
 Este repositorio contiene **la especificación**, no el código: qué es Lotte, qué decisiones de
 diseño se tomaron, por qué, con qué evidencia, y en qué orden se construye. Está escrito para que

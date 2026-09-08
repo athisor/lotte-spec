@@ -2,7 +2,7 @@
 
 ## Qué es
 
-Lotte es un motor y un entorno de animación 2D de **recorte** (*cutout*) y **vectorial**: personajes
+Lotte es un motor y un entorno de animación 2D **cutout** y **vectorial**: personajes
 armados con piezas dibujadas y una jerarquía de pivotes (*pegs*), animados con curvas en el tiempo,
 compuestos en planos con fondo y cámara, y renderizados por GPU. Es lo que Lotte Reiniger hacía con
 cartulina, bisagras y una cámara sobre una mesa de vidrio, llevado a la computación gráfica actual.
@@ -43,7 +43,7 @@ porque un plano real los necesita — como nodos y pistas aditivos, nunca como f
 
 ## Para quién
 
-Para animadores de recorte que necesitan una herramienta rápida, abierta y automatizable; para
+Para animadores cutout que necesitan una herramienta rápida, abierta y automatizable; para
 estudios que quieren integrarla a su pipeline por archivos y línea de comandos; y para
 desarrolladores —humanos o no— que quieran construir sobre una especificación medida en vez de
 sobre una intuición.

@@ -30,7 +30,7 @@ Lotte distingue rigurosamente dos dimensiones de profundidad:
 
 ## 3. Modelo Matemático de Proyección y Paralaje
 
-Sea una cámara con distancia de proyección focal $D$ (distancia al plano focal principal $Z = 0$) y posición en el escenario $(X_{\text{cam}}, Y_{\text{cam}})$. La cámara está en $z = D > 0$: **mayor $z$ = más cerca de la cámara**, la convención de OpenToonz y de los animadores de recorte (decisión D1 en [`decisiones-modelo-de-datos.md`](decisiones-modelo-de-datos.md)).
+Sea una cámara con distancia de proyección focal $D$ (distancia al plano focal principal $Z = 0$) y posición en el escenario $(X_{\text{cam}}, Y_{\text{cam}})$. La cámara está en $z = D > 0$: **mayor $z$ = más cerca de la cámara**, la convención de OpenToonz y de los animadores cutout (decisión D1 en [`decisiones-modelo-de-datos.md`](decisiones-modelo-de-datos.md)).
 
 ### 3.1. Factor de Proyección de Profundidad ($S_z$)
 Para cualquier objeto situado a una profundidad continua $z$:

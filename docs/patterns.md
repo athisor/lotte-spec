@@ -17,7 +17,7 @@ documento: se escribió antes y desde la práctica de la animación 2D.
 ## 1. Separación de trazo y relleno en piezas articuladas
 
 **El problema.** En los formatos vectoriales corrientes, una figura une su contorno y su relleno en
-un solo objeto. En animación de recorte esa unión es un obstáculo: cuando un antebrazo rota sobre un
+un solo objeto. En animación cutout esa unión es un obstáculo: cuando un antebrazo rota sobre un
 torso, el *relleno* del antebrazo debe tapar las líneas del torso que quedan detrás, pero su *línea
 de contorno* no debe cortar visualmente el cuerpo adyacente. Relleno y contorno necesitan orden de
 apilamiento y reglas de visibilidad independientes.

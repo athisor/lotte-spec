@@ -55,4 +55,16 @@ guardar y reabrir idéntico, exportar la secuencia PNG. Ver la hoja de ruta.
 
 ## Licencia
 
-Ver [`LICENSE.md`](LICENSE.md).
+Licenciado bajo cualquiera de las dos, a elección de quien la use:
+
+- Apache License, Version 2.0 — [`LICENSE-APACHE`](LICENSE-APACHE)
+- MIT license — [`LICENSE-MIT`](LICENSE-MIT)
+
+Es la misma licencia dual del motor. Salvo que se indique lo contrario, toda contribución
+enviada intencionalmente para su inclusión queda bajo esa misma licencia dual, sin términos
+adicionales.
+
+Las citas a proyectos de terceros (DragonBonesCPP — MIT; OpenToonz — BSD-3-Clause; Graphite —
+Apache-2.0 / MIT; Rerun — Apache-2.0; Godot — MIT; Bevy — MIT / Apache-2.0; WebKit — BSD) son
+referencias con archivo y línea a su código público, bajo sus propias licencias; esta
+especificación no reproduce su código.

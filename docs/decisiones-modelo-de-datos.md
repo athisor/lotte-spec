@@ -276,3 +276,26 @@ Soporte, no foco; todo como nodos o pistas **aditivos** que no tocan el núcleo.
 - **D-Bench**: `criterion` como `[dev-dependencies]`, con líneas base guardadas fuera del repo y la
   regla de que un número de rendimiento en un PR es una corrida local con su salida pegada. Primer
   uso: `FCurve::evaluate` y `RigDag::evaluate_all` con jerarquía profunda **y** plana.
+
+### D-Lang, D-i18n y D-Doc — firmadas el 2026-09-14
+
+> "Incluir que el sistema permita cambiar el idioma de manera fácil: un archivo de lenguaje en algún
+> formato estándar de traducción, para que los diálogos se carguen desde esos archivos y sea fácil
+> hacer traducciones."
+
+- **D-Lang — identificadores en inglés.** El código de los cinco crates ya está en inglés
+  (`RigDag`, `ViewportCamera`, `set_local_transform`), igual que toda dependencia; los tipos nuevos
+  (`Edit`, `Pose`, `begin_gesture`) siguen esa convención. Documentación, commits e issues en
+  español. Mezclar los dos en el árbol obligaría a un rename masivo más adelante.
+- **D-i18n — la interfaz no tiene cadenas literales.** Todo texto visible sale de archivos
+  **Fluent** (`.ftl`, Project Fluent — `fluent-bundle 0.16`, `unic-langid 0.9`, Apache-2.0 OR MIT),
+  uno por idioma en `locales/<lang>/lotte.ftl`; `es` como idioma de desarrollo y `en` desde el
+  primer día; idioma del sistema por defecto (`sys-locale 0.3`) y cambio en caliente desde el menú.
+  Fluent es un estándar abierto nativo de Rust, maneja plurales y género, y lo entienden las
+  plataformas de traducción (Weblate, Crowdin, Pontoon): un traductor no toca código. Alternativa
+  medida y descartada: gettext `.po` (`gettext-rs` enlaza una biblioteca C). Entra en el hito 1
+  (issue A8) porque externalizar textos el primer día cuesta nada y el último cuesta un barrido
+  entero; el candado es un test que falla ante cualquier cadena literal en una llamada de UI.
+- **D-Doc — el modelo de documento vive en el crate `lotte-doc`**, sobre `lotte-format`,
+  `lotte-rig`, `lotte-timeline` y `lotte-core`; `lotte-app` y la CLI `lotte` son sus clientes
+  (D-API). Decidido en vez de dejarlo entre paréntesis en F1.

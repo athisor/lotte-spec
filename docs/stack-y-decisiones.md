@@ -83,6 +83,7 @@ Leyenda de razones: **[V]** velocidad · **[A]** arquitectura · **[C]** compati
 | `clap` | 4.6.6 | CLI `lotte` (`export`, `info`, `validate`, `import-anim`, `combine`) con JSON | **[A]** la interfaz no tiene privilegios: todo existe primero sin ventana (D-API) |
 | `rmcp` | 3.2.0 | Servidor MCP: las mismas operaciones como herramientas para un modelo de lenguaje | **[A]** adaptador fino sobre la misma API; **[L]** SDK oficial, Apache-2.0 |
 | `schemars` | 1.2.2 | JSON Schema de `Edicion`, operaciones y archivos | **[A]** la documentación se genera del código y alimenta CLI, MCP y validación |
+| `fluent-bundle` + `unic-langid` + `sys-locale` | 0.16 / 0.9 / 0.3 | Textos de la interfaz en archivos Fluent (`.ftl`) por idioma; idioma del sistema por defecto | **[F]** traducir es editar un archivo estándar (Weblate, Crowdin, Pontoon lo entienden), no tocar código; **[L]** Apache/MIT, nativo de Rust. Descartado `gettext-rs` (enlaza C) |
 | `criterion` | 0.8.2 | Benchmarks con líneas base (`[dev-dependencies]`) | **[V]** único modo de que un número de rendimiento exista y de detectar cuándo empeora (`--baseline`); Windows. Decidido |
 
 **Descartados con medición** ([`stack-verificado.md`](stack-verificado.md) §3): `eframe` (se
@@ -132,6 +133,7 @@ que cada una bloquea en [`plan-siguiente-etapa.md`](plan-siguiente-etapa.md). To
 | **D-Img / D-Audio / D-Export / D-Text** | Fondos raster, audio básico, exportación PNG + `ffmpeg` externo, texto vectorial — todo como nodos o pistas **aditivos**, en la familia de `vello` | **[F]** soporte a lo que un plano real necesita sin desviar el foco; **[C]** alineación medida; **[L]** nada GPL enlazado |
 | **D-API** | La interfaz no tiene privilegios: toda acción es una `Edicion` u operación invocable sin ventana; render headless; tres puertas (crates, CLI JSON, MCP) sobre la misma API; esquemas generados | **[A]** automatizar exportar/combinar/importar animaciones desde fuera (pipeline del estudio, modelos de lenguaje) sin *scripting* embebido — el scripting vive fuera (Python, LLM) y las extensiones son Rust contra la API pública o propuestas al core; **[F]** la biblioteca de animaciones se aplica por lotes |
 | **Formatos propietarios** | No se leen formatos de herramientas comerciales | **[L]** sin riesgo legal; intercambio por estándares abiertos (SVG, DragonBones JSON; Lottie/glTF como exportadores) |
+| **D-Lang / D-i18n / D-Doc** | Identificadores en inglés; interfaz sin cadenas literales, todo en Fluent (`es` de desarrollo, `en` desde el día uno); modelo de documento en el crate `lotte-doc` | **[A]** un solo idioma en el código, consistente con los crates y las dependencias; **[F]** cambiar el idioma de la interfaz es un archivo, no un release; **[A]** app y CLI consumen el mismo documento |
 | **D-Save** | Autoguardado = **anexar** ediciones a un diario (JSON Lines, `fsync`, hilo propio); Ctrl+S = instantánea `Arc` + hilo que escribe solo archivos sucios a temporal + *rename*, rota `.1`/`.2`, trunca el diario; abrir reproduce el diario | **[V]** el autoguardado cuesta lo que costó la edición, no lo que pesa el plano; el hilo de dibujo nunca toca disco; **[F]** recuperar la última sesión. |
 
 **Modelo de dibujo** (especificado, sin decisión pendiente): dos primitivas — `Stroke` (línea
@@ -155,7 +157,7 @@ vello, egui, paneles acoplables, tableta con presión, y los cuatro crates del m
 
 **Lo que está decidido**: todas las decisiones de arriba, D-Bench incluida (`criterion`). **Ninguna pendiente.**
 
-**Lo que está especificado y planificado**: ocho lotes, ~51 issues, con criterio medible cada uno
+**Lo que está especificado y planificado**: ocho lotes, ~53 issues, con criterio medible cada uno
 ([`plan-siguiente-etapa.md`](plan-siguiente-etapa.md)):
 
 | Lote | Qué | Depende de |

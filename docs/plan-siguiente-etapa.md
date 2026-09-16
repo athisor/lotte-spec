@@ -63,6 +63,7 @@ perder nada de lo verificado. Es el lote que hace que todo lo demás tenga dónd
 | A8 | **Internacionalización desde el primer día** (D-i18n): `fluent-bundle 0.16` + `unic-langid 0.9` + `sys-locale 0.3`; `locales/es/lotte.ftl` y `locales/en/lotte.ftl` con **todos** los textos de A1 (menús, herramientas, tooltips, indicadores); idioma del sistema por defecto, cambio en caliente desde el menú; un helper `t!("clave")` o equivalente, sin cadenas literales visibles en `lotte-app` | Test que carga las dos locales y afirma que tienen **el mismo conjunto de claves** (conteo > 0, `todo-barrido-afirma-que-leyo-algo`); test que recorre `lotte-app/src` y falla si aparece una cadena literal en una llamada de UI (`ui.label("…")`, `menu_button("…")`) — mutación: agregar una → cae; cambiar de idioma en la app no reinicia ni pierde el estado | **M** |
 | A6 | **Archivos de licencia** (D-Lic): `LICENSE-MIT`, `LICENSE-APACHE`, `NOTICE` con las atribuciones ya debidas (DragonBonesCPP MIT, OpenToonz BSD-3, Graphite Apache/MIT, egui_tiles, egui-phosphor), y `license = "MIT OR Apache-2.0"` en el `Cargo.toml` de **cada** crate (medido 2026-09-14: ninguno lo declara) | Los tres archivos existen en la raíz; `grep -L 'license = ' crates/*/Cargo.toml` no devuelve nada; README enlaza. (No se afirma nada sobre `cargo package`: empaqueta el directorio del crate, no la raíz; se decide cuando haya publicación) | **S** |
 | A7 | **Banco de pruebas con `criterion 0.8.2`** (D-Bench): `[dev-dependencies]` y `[[bench]]` con `harness = false` en `lotte-timeline` (`FCurve::evaluate`) y `lotte-core` (`RigDag::evaluate_all` con jerarquía profunda de 300 pegs **y** plana de 300 pegs); líneas base fuera del repo (`CRITERION_HOME` apuntando a un directorio fuera del repositorio, o copia tras `--save-baseline`) | `cargo bench` corre en verde en los dos crates; el PR pega la salida cruda de las cuatro mediciones y **reemplaza** la frase "convergencia sub-microsegundo" del README por el número medido (o la quita si no se cumple); `cargo tree` del workspace sin `criterion` fuera de `dev-dependencies` | **M** |
+| A9 | **Perfil `dev` para worktrees persistentes**: en el `Cargo.toml` del workspace, `[profile.dev] incremental = false` y `debug = "line-tables-only"`, con el comentario de por qué. Cómo se midió (2026-09-15, worktree limpio, clippy + test): valores por defecto 10,5 s / 249 MB / 989 archivos, de los cuales 70 MB son `incremental/`; con los dos ajustes 11,0 s / 162 MB / 464 archivos. Compartir el directorio de build entre worktrees se descartó por medición: cargo no mete la ruta del worktree en el hash del crate y un worktree termina enlazando el `.rlib` que compiló otro (falso verde) | En un worktree limpio, `cargo clippy --workspace --all-targets -- -D warnings` + `cargo test --workspace` dejan `target/` con **≤ 500 archivos** (`find target -type f \| wc -l`, salida pegada) y sin `target/debug/incremental/`; el gate no tarda más de un 10 % que con el perfil por defecto (las dos corridas pegadas); un `panic` en un test sigue mostrando `archivo:línea` en el backtrace (pegar uno) | **S** |
 
 **Orden:** A6 y A2 no dependen de nada y pueden ir en paralelo con A1. A3, A4 y A5 dependen de A1.
 **Retrospectiva al cierre:** ¿el laboratorio quedó vacío de código vivo? Si no, algo no se migró.
@@ -195,7 +196,7 @@ del autor.
 | Paso | Issues | Qué entrega | Sesión |
 |---|---|---|---|
 | 1 | **E1** | reposo + `Pose` en `lotte-core` conservando D2; alias serde y primer fixture de versión anterior — la única issue que cambia código existente, y va **sola** antes de todo lo que la use | 1 |
-| 2 | **A2, A6, A7** | Y-arriba con test; licencias en raíz y en cada crate; `criterion` y el número real del README | 1 |
+| 2 | **A2, A6, A7, A9** | Y-arriba con test; licencias en raíz y en cada crate; `criterion` y el número real del README; perfil `dev` sin incremental para los worktrees persistentes | 1 |
 | 3 | **A1, A3, A5, A8** | `lotte-app` sobre la API de E1: ventana, vello, egui, paneles, tableta, tema oscuro, iconos, textos en Fluent | 2 |
 | 4 | **F1, F2, F3** | `lotte-doc`: `Edit` con inverso, pila por memoria, fusión de gestos; regla `ui-sin-privilegios` | 2 |
 | 5 | **E5** | importar SVG a `Drawing` en `lotte-rig`, con el puppet real del estudio como fixture | 3 |
@@ -206,7 +207,7 @@ del autor.
 | 10 | **H3** | `lotte export` headless, y el test de "terminado" 4 y 5 corrido desde la CLI | 4 |
 
 
-Veintidós issues, cuatro sesiones de orquestación (revisadas el 2026-09-14: A4 eliminado; A8, C0, D0 y E9 nuevos; E1 primero y sola).
+Veintitrés issues, cuatro sesiones de orquestación (revisadas el 2026-09-14: A4 eliminado; A8, C0, D0 y E9 nuevos; E1 primero y sola; A9 agregada el 2026-09-15 tras medir el costo en disco de los worktrees).
 Orden de fusión por `Cargo.lock`: A7 y A1 primero, E5 y E8 rebasadas después, H3 última — cinco issues
 agregan dependencias y ningún par de ellas se fusiona el mismo día.
 **Criterio transversal del hito (D-API)**: cada acción de la interfaz que entre en H1/H2 existe
@@ -254,5 +255,5 @@ el resto crece con los hitos que le dan operaciones que exponer.
 | Hito 6 — medios | G1, G2, G3, G4b, G5; Lottie | Fondos, audio, video, texto; soporte, no foco |
 | Transversal desde el hito 2 — automatización | H4, H5, H6 | CLI completa (`info`, `validate`, `import-anim`, `combine`, `render-thumb`), servidor MCP con `rmcp`, esquemas `schemars` que generan la documentación; regla `ui-sin-privilegios` |
 
-Ocho lotes, ~53 issues. Los tamaños son estimaciones y se re-miden al abrir cada
+Ocho lotes, ~54 issues. Los tamaños son estimaciones y se re-miden al abrir cada
 issue; los criterios se escriben con "Cómo se midió" como manda la regla.

@@ -157,7 +157,7 @@ vello, egui, paneles acoplables, tableta con presión, y los cuatro crates del m
 
 **Lo que está decidido**: todas las decisiones de arriba, D-Bench incluida (`criterion`). **Ninguna pendiente.**
 
-**Lo que está especificado y planificado**: ocho lotes, ~53 issues, con criterio medible cada uno
+**Lo que está especificado y planificado**: ocho lotes, ~54 issues, con criterio medible cada uno
 ([`plan-siguiente-etapa.md`](plan-siguiente-etapa.md)):
 
 | Lote | Qué | Depende de |

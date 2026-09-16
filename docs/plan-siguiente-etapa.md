@@ -214,6 +214,17 @@ agregan dependencias y ningún par de ellas se fusiona el mismo día.
 primero como `Edicion` u operación con test sin ventana; el test de "terminado" 4 y 5 (reabrir
 idéntico, exportar idéntico) se corre **desde la CLI**, sin abrir la aplicación.
 
+### Estado al cierre del primer lote (2026-09-16)
+
+El primer lote del hito 1 corrió con agentes (un orquestador, developers y QA con medición): 30 PR
+fusionados, 8 crates, 249 tests. Los pasos 1 a 3 de la definición de terminado quedaron cerrados sin
+ventana; el 4 y el 5 abiertos. Issues nacidas del lote y agregadas al hito: A2b (rotación antihoraria
+de la cámara), A0 (`lotte-app` monta un `Document`), A0b (el candado de inventario sigue los módulos
+de archivo), H3b-1 (dibujos en la biblioteca) y H3b-2 (el export dibuja la figura real), D0b (dope
+sheet sobre curvas reales), y de la prueba manual del autor C1 (mano y barra espaciadora), C2 (la
+herramienta gobierna la entrada) y F6 (menú Archivo). Las convenciones chicas que aparecieron están
+en el acta, "Convenciones fijadas durante la primera implementación".
+
 ### Lo que queda **explícitamente fuera** del hito 1
 
 Audio (G3), fondos raster y PSD (G1, G2), texto (G5), video por `ffmpeg` (G4b), multiplano (B1–B4),

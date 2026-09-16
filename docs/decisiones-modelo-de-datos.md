@@ -111,7 +111,7 @@ Apache Arrow — pocos tensores grandes, no miles chicos:
 
 | Tensor | dtype / shape | Contenido |
 |---|---|---|
-| `keys` | `F64 [N, 6]` (o `F32` si la medición lo permite) | `time, value, hout_x, hout_y, hin_x, hin_y` de **todas** las claves de todos los canales, concatenadas |
+| `keys` | `F64 [N, 6]` — **F64 firmado el 2026-09-16 con la medición de E8**; no por precisión sub-frame (el peor error de F32 medido es 3,3e-4 frames, despreciable) sino porque el round-trip exacto del contrato en disco lo exige: `keys` son seis columnas sin magnitud acotada | `time, value, hout_x, hout_y, hin_x, hin_y` de **todas** las claves de todos los canales, concatenadas |
 | `key_interp` | `U8 [N]` | Hold / Linear / Bezier / TCB / Clamped |
 | `channel_offsets` | `U32 [C+1]` | dónde empieza cada canal dentro de `keys` |
 | `exposure_runs` | `U32 [R, 3]` | `(frame_inicio, largo, dibujo)`: un hold de 200 frames es **una** fila |
@@ -276,6 +276,34 @@ Soporte, no foco; todo como nodos o pistas **aditivos** que no tocan el núcleo.
 - **D-Bench**: `criterion` como `[dev-dependencies]`, con líneas base guardadas fuera del repo y la
   regla de que un número de rendimiento en un PR es una corrida local con su salida pegada. Primer
   uso: `FCurve::evaluate` y `RigDag::evaluate_all` con jerarquía profunda **y** plana.
+
+### D-Tab, medido — 2026-09-16
+
+E8 midió las tres codificaciones sobre un fixture sintético de 3 500 canales × 17 500 claves, y QA lo
+reprodujo de forma independiente en tres vueltas. Bytes: JSON 1,76 MB · CBOR 873,6 KB · safetensors
+873,9 KB. Apertura de diez instancias con `criterion` en release: safetensors **≈2,3× más rápido que
+CBOR** y **≈9–10× que JSON** (los milisegundos absolutos varían hasta 1,5× entre máquinas; las razones
+no). **Predeterminado firmado: safetensors**, con el diccionario JSON al lado; CBOR disponible; JSON
+solo para inspección. `serde_json` lleva el feature `float_roundtrip` para que el round-trip de `f64`
+sea exacto (costo medido: +3 a +6 % al parsear los fixtures versionados, +37 % sobre una tabla JSON
+de 17,6 MB).
+
+### Convenciones fijadas durante la primera implementación — 2026-09-16
+
+Decisiones chicas que aparecieron al construir el hito 1 y que un developer no podía tomar solo. Cada
+una salió de un desacuerdo medido en un PR y tiene su candado ejecutable en el crate que la implementa.
+
+| Convención | Qué dice | Dónde salió |
+|---|---|---|
+| Ángulos | Positivo = antihorario en el mundo Y-arriba y así se ve en pantalla; la cámara compone el volteo *después* de la rotación | A2 / A2b |
+| Rendimiento de interfaz | Todo número de un criterio de UI se mide en **release**, que es el perfil del animador; el de `dev` se pega como contexto, marcado | D1 |
+| Radio del hit-test | 12 **píxeles físicos**; el único candado que distingue las dos lecturas es el test con `scale_factor = 2.0` | C0 |
+| Directorio del plano | No existe un tercer archivo de índice: la referencia a la biblioteca es un campo aditivo de `scene.json`; la lista de archivos que el guardado rota y marca sucios sigue cerrada (`scene.json`, `anim/*`) | E9 |
+| Dibujos | Viven en la **biblioteca** (`rigs/<id>/drawings/*.svg`), nunca en el plano; se escriben con el mismo namespace `lotte:` que se importa (D-Draw), con el `viewBox` real para que abran enteros en cualquier editor, y se resuelven por identificador, nunca por ruta serializada | H3b-1 |
+| Redondeo del *scrub* | La mitad de camino se aleja de cero (`f64::round`); como el frame se acota a `[0, max]` *después* del snap, en el rango válido equivale a "mitad hacia arriba" | D2 |
+| Fusión de gestos | La clave de fusión es (nodo, atributo); asignar un dibujo dos veces al mismo peg dentro de la ventana es **un** paso | F3 |
+| Capas | `lotte-app` **depende de `lotte-doc`** y el estado del editor es un `Document`: core → rig / timeline → format → doc → app. Las dos reglas duras no cambian | A0 |
+| Evidencia visual | Una captura nunca es el candado; si se toma, solo de la ventana de Lotte y nunca se publica; los agentes no simulan el ratón ni la tableta en la máquina del autor | A3 / A5 / A8 |
 
 ### D-Lang, D-i18n y D-Doc — firmadas el 2026-09-14
 

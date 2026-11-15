@@ -141,6 +141,10 @@ cualquier visor lo pinta bien; un lector Lotte usa los atributos `lotte:` y reco
 editable. Es la extensibilidad que la propia especificación SVG prevé: el archivo es abierto sin ser
 pobre. Cumple a la vez el requisito de interoperabilidad y el de que la escena sea chica.
 
+> **Enmendada el 2026-11-15** («D-Draw, enmienda», más abajo): el contorno resuelto y los datos del
+> trazo van en grupos separados, y la primitiva es una sola. Especificación:
+> [`modelo-de-dibujo.md`](modelo-de-dibujo.md).
+
 ## Modelo de dibujo y modelo temporal (especificados)
 
 **Dibujo**: dos primitivas — `Stroke` (línea central + perfil de grosor a dos lados por longitud de
@@ -327,3 +331,24 @@ una salió de un desacuerdo medido en un PR y tiene su candado ejecutable en el 
 - **D-Doc — el modelo de documento vive en el crate `lotte-doc`**, sobre `lotte-format`,
   `lotte-rig`, `lotte-timeline` y `lotte-core`; `lotte-app` y la CLI `lotte` son sus clientes
   (D-API). Decidido en vez de dejarlo entre paréntesis en F1.
+
+### D-Draw, enmienda — 2026-11-15: el trazo lleva el color a cada lado
+
+D-Draw se mantiene (un archivo por dibujo, SVG más namespace `lotte:`, cuatro capas de arte, perfil
+de grosor a dos lados, paleta por id) y se precisa en cinco puntos. La especificación completa
+queda en [`modelo-de-dibujo.md`](modelo-de-dibujo.md).
+
+| # | Qué se decide | Por qué |
+|---|---|---|
+| 1 | **Una sola primitiva: el trazo**, que dice por dónde pasa, si se ve como línea y **qué color hay a su izquierda y a su derecha**. `Contour` deja de ser una segunda primitiva: es un trazo cerrado, sin línea, con color hacia adentro | Es la forma de dato de «relleno por referencia a los trazos»: una zona de color es lo que encierran los trazos, no un objeto aparte. Medido en 2 482 dibujos reales de producción: entre el 55 % y el 62 % de los trazos son líneas que no se dibujan y solo delimitan color |
+| 2 | Un trazo puede ser **invisible**, y puede **tomar los puntos de otro** (`geometry_of`) | La línea y el borde del color son el mismo recorrido; en la misma medición, entre el 12 % y el 50 % de los trazos comparten puntos |
+| 3 | Cada arte tiene **capas ordenadas**; el perfil declara su **interpolación** y puede guardar números de origen sin interpretar; el color conserva su **id externo** | Para que un dibujo traído de afuera vuelva igual |
+| 4 | En el SVG, **la apariencia resuelta va aparte y es derivada**; los datos del trazo van en su propio grupo y mandan | Una zona de color la forman varios trazos: apariencia y datos no caben en el mismo `<path>`, como suponía D-Draw |
+| 5 | El dibujo declara **versión, unidades, origen y estado** (`derived`, `adopted`, `new`) y la lista de lo que su origen trae sin descifrar | Un dibujo `derived` vuelve a su origen como el archivo original, sin reescribir; lo editado lo escribe la herramienta dueña de ese formato. Lotte sigue sin leer ni escribir formatos comerciales |
+
+Se mantiene también D-Tab como patrón para una futura tabla de tensores de dibujos, derivada y sin
+diseñar todavía. Los cambios a este modelo son aditivos y suben `version` (D-Fmt).
+
+**Estado:** especificado. Primera implementación de las formas JSON y SVG fuera de este
+repositorio, con ida y vuelta medida sin diferencias en los 2 482 dibujos. `lotte-rig` todavía
+guarda el dibujo simple del hito 1.

@@ -19,6 +19,7 @@ animar**. El [manifiesto](MANIFIESTO.md) las desarrolla en una página.
 | Qué debe hacer el motor | [`prd.md`](prd.md) |
 | Qué stack se eligió y por qué cada pieza | [`docs/stack-y-decisiones.md`](docs/stack-y-decisiones.md) |
 | Las decisiones del modelo de datos, con su razón | [`docs/decisiones-modelo-de-datos.md`](docs/decisiones-modelo-de-datos.md) |
+| Qué es un dibujo y cómo se guarda (trazos, color a cada lado, SVG y JSON) | [`docs/modelo-de-dibujo.md`](docs/modelo-de-dibujo.md) |
 | Lo que los animadores necesitan y qué exige del modelo | [`docs/requisitos-animador.md`](docs/requisitos-animador.md) |
 | Arquitectura de crates y pipeline por frame | [`docs/architecture.md`](docs/architecture.md) |
 | Los problemas de la animación 2D, abstractos, sin código | [`docs/patterns.md`](docs/patterns.md) |
